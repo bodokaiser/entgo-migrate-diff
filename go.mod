@@ -3,12 +3,12 @@ module github.com/bodokaiser/entgo-migrate-diff
 go 1.19
 
 require (
+	ariga.io/atlas v0.8.2-0.20221108073928-ba5d4f596240
 	entgo.io/ent v0.11.5-0.20221109185045-b86bc12db9f7
 	github.com/jackc/pgx/v5 v5.0.4
 )
 
 require (
-	ariga.io/atlas v0.8.2-0.20221108073928-ba5d4f596240 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/go-openapi/inflect v0.19.0 // indirect

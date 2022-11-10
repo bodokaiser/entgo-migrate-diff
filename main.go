@@ -6,7 +6,7 @@ import (
 	"flag"
 	"log"
 
-	"ariga.io/atlas/sql/sqltool"
+	atlas "ariga.io/atlas/sql/migrate"
 	"entgo.io/ent/dialect"
 	entsql "entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/schema"
@@ -30,15 +30,16 @@ func main() {
 	client := ent.NewClient(ent.Driver(entsql.OpenDB(dialect.Postgres, db)))
 	defer client.Close()
 
-	dir, err := sqltool.NewGolangMigrateDir("ent/migrate/migrations")
+	dir, err := atlas.NewLocalDir("ent/migrate/migrations")
 	if err != nil {
-		log.Fatalf("failed creating migration directory: %v", err)
+		log.Fatalf("failed creating atlas migration directory: %v", err)
 	}
 
 	err = client.Schema.NamedDiff(context.Background(), name,
 		schema.WithDir(dir),
 		schema.WithMigrationMode(schema.ModeReplay),
 		schema.WithDialect(dialect.Postgres),
+		schema.WithFormatter(atlas.DefaultFormatter),
 	)
 	if err != nil {
 		log.Fatalf("failed creating named schema diff: %v", err)
